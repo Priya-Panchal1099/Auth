@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +35,10 @@ public class WebSecurityConfig {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return email -> userRepository.findByEmail(email)
                 .map(user -> new org.springframework.security.core.userdetails.User(
-                        user.getEmail(), user.getPassword(), java.util.List.of()))
+                        user.getEmail(), user.getPassword(), user.getRoles().stream()
+                                .map(SimpleGrantedAuthority::new)
+                                .toList() 
+                                ))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

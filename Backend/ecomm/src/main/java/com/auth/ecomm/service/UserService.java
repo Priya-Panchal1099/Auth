@@ -23,6 +23,9 @@ public class UserService {
             throw new RuntimeException("User already exists with email: " + user.getEmail());
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getRoles() == null || user.getRoles().isEmpty()) {
+            user.setRoles(user.getRoles()); // default role if none provided
+        }
         return userRepository.save(user);
     }
 
