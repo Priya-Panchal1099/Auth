@@ -25,7 +25,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
-public class User  implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +40,8 @@ public class User  implements UserDetails {
     @NotBlank(message = "Email is required")
     @Column(unique = true)
     private String email;
+
+    private String otp;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -105,6 +107,14 @@ public class User  implements UserDetails {
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 
 }
