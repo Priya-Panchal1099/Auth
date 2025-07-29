@@ -18,11 +18,11 @@ public class UserService {
      @Autowired
     private PasswordEncoder passwordEncoder;
     
-    @Autowired
-    private OtpService otpService; // Assuming you have an OtpService for OTP generation
+    // @Autowired
+    // private OtpService otpService; // Assuming you have an OtpService for OTP generation
 
-    @Autowired
-    private EmailService emailService; // Assuming you have an EmailService for sending emails
+    // @Autowired
+    // private EmailService emailService; // Assuming you have an EmailService for sending emails
 
     public User saveUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
@@ -44,15 +44,15 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
-    public void generateAndSendOtp(String email) {
-        User user=new User();
-        String otp = otpService.generateOtp(email);
-        user.setOtp(otp);
-        emailService.sendOtpEmail(email, otp);
-    }
+    // public void generateAndSendOtp(String email) {
+    //     User user=new User();
+    //     String otp = otpService.generateOtp(email);
+    //     user.setOtp(otp);
+    //     emailService.sendOtpEmail(email, otp);
+    // }
 
-    public boolean verifyOtp(String email, String otp) {
-        return otpService.verifyOtp(email, otp);
-    }
+    // public boolean verifyOtp(String email, String otp) {
+    //     return otpService.verifyOtp(email, otp);
+    // }
     
 }

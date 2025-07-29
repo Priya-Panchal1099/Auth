@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> addUsers(@RequestBody User user) {
         userService.saveUser(user);
-        userService.generateAndSendOtp(user.getEmail());
+        // userService.generateAndSendOtp(user.getEmail());
         return ResponseEntity.ok("User registered. OTP sent to " + user.getEmail());
     }
     
@@ -42,12 +42,12 @@ public class UserController {
         return ResponseEntity.ok(user);       
     }
     
-     @PostMapping("/verify-otp")
-     public ResponseEntity<String> verifyOtp(@RequestParam String email, @RequestParam String otp) {
-         boolean isVerified = userService.verifyOtp(email, otp);
-         return isVerified 
-             ? ResponseEntity.ok("OTP verified successfully.")
-             : ResponseEntity.status(400).body("Invalid OTP.");
-     }
+    //  @PostMapping("/verify-otp")
+    //  public ResponseEntity<String> verifyOtp(@RequestParam String email, @RequestParam String otp) {
+    //      boolean isVerified = userService.verifyOtp(email, otp);
+    //      return isVerified 
+    //          ? ResponseEntity.ok("OTP verified successfully.")
+    //          : ResponseEntity.status(400).body("Invalid OTP.");
+    //  }
       
 }

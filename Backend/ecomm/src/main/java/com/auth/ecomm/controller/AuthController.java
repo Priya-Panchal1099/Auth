@@ -48,13 +48,13 @@ public class AuthController {
         return Map.of("token", token);
     }
 
-    @PostMapping("/send-otp")
-    public ResponseEntity<String> sendOtp(@RequestBody Map<String,String> emailReq) {
-        String email = emailReq.get("email");
-        userService.generateAndSendOtp(email);
-        return ResponseEntity.ok("OTP sent to " + email);
+    // @PostMapping("/send-otp")
+    // public ResponseEntity<String> sendOtp(@RequestBody Map<String,String> emailReq) {
+    //     String email = emailReq.get("email");
+    //     userService.generateAndSendOtp(email);
+    //     return ResponseEntity.ok("OTP sent to " + email);
  
-    }
+    // }
     
     
 }
