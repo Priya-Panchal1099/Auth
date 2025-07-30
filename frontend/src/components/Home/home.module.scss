@@ -1,0 +1,23 @@
+
+$primary-color: #6366f1;
+$secondary-color: #8b5cf6;
+$accent-color: #ec4899;
+$light-color: #f3f4f6;
+$dark-color: #1f2937;
+$success-color: #10b981;
+
+.container {
+  display: flex;
+//   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+//   gap: 2rem;
+//   padding: 2rem;
+  background-color: $light-color;
+  min-height: 650px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+

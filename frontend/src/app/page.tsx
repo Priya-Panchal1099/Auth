@@ -1,10 +1,15 @@
 import Register from "@/components/Register";
 import "../app/globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Homepage from "@/components/Home";
 
 export default function Home() {
   return (
   <>
-  <Register />
+    <Header />
+      <Homepage />
+    <Footer />
   </>
   );
 }

@@ -1,0 +1,43 @@
+/* styles/footer.module.scss */
+
+.footer {
+  background-color: #1f2937; /* Dark color */
+  color: white;
+  padding: 1rem 0; /* Reduced padding */
+  text-align: center;
+  font-size: 0.875rem; /* Smaller base font size */
+}
+
+.footerContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerLogo {
+  font-size: 1rem; /* Reduced font size */
+  font-weight: bold;
+  color: white;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 0.75rem; /* Reduced gap */
+}
+
+.socialLinks a {
+  color: white;
+  font-size: 1rem; /* Reduced icon size */
+}
+
+.copyright {
+  margin-top: 0.5rem; /* Reduced margin */
+  font-size: 0.75rem; /* Reduced font size */
+  color: #9ca3af; /* Light gray color */
+}

@@ -5,7 +5,7 @@ import styles from './register.module.scss';
 import Image from 'next/image';
 import axios from 'axios';
 
-export default function UserForm() {
+export default function Register() {
     interface FormData {
         username: string;
         password: string;
@@ -37,7 +37,7 @@ export default function UserForm() {
         }
     };
 
-    debugger;
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
