@@ -48,6 +48,7 @@ export default function UserForm() {
             });
             console.log("Response:", response.data);
             alert('Registration successful!');
+            clearForm(); // Clear the form after successful submission
         } catch (error) {
             console.error('Error:', error);
             alert('Registration failed. Please try again.');
