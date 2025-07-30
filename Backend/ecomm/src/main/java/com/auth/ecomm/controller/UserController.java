@@ -25,10 +25,10 @@ public class UserController {
     private UserService userService;
     
     @PostMapping("/register")
-    public ResponseEntity<String> addUsers(@RequestBody User user) {
-        userService.saveUser(user);
+    public ResponseEntity<User> addUsers(@RequestBody User user) {
+        User saveUser = userService.saveUser(user);
         // userService.generateAndSendOtp(user.getEmail());
-        return ResponseEntity.ok("User registered. OTP sent to " + user.getEmail());
+        return ResponseEntity.ok(saveUser);
     }
     
     @GetMapping("/getUser")
