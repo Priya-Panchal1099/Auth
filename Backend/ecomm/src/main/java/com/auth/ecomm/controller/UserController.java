@@ -31,10 +31,7 @@ public class UserController {
         return ResponseEntity.ok(saveUser);
     }
     
-    @GetMapping("/getUser")
-    public List<User> getUsers() {
-        return userService.getUser();
-    }
+
 
     @GetMapping("/getUser/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {

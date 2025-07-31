@@ -1,14 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import styles from './login.module.scss';
 import axios from 'axios';
 
- interface FormData {
-        email: string;
-        password: string;
-    }
+interface FormData {
+    email: string;
+    password: string;
+}
 const Login = () => {
-
+    const [token, setToken] = useState<string | null>(null);
     const [formData, setFormData] = useState<FormData>({
         email: '',
         password: '',
@@ -21,8 +21,8 @@ const Login = () => {
             [name]: value,
         }));
     }
-    
-     const clearForm = () => {
+
+    const clearForm = () => {
         setFormData({
             email: '',
             password: '',
@@ -38,6 +38,10 @@ const Login = () => {
                 },
             });
             console.log("Response:", response.data);
+            // Assuming the response contains a token
+            const { token } = response.data;
+            setToken(token);
+            localStorage.setItem('token', token);
             alert('Login successful!');
             clearForm();
         } catch (error) {
@@ -45,13 +49,30 @@ const Login = () => {
             alert('Login failed. Please try again.');
         }
     }
+
+    useEffect(() => {
+        const requestInterceptor = axios.interceptors.request.use(
+            config => {
+                const token = localStorage.getItem('token');
+                if (token) {
+                    config.headers.Authorization = `Bearer ${token}`;
+                }
+                return config;
+            },
+            error => {
+                return Promise.reject(error);
+            })
+        return () => {
+            axios.interceptors.request.eject(requestInterceptor);
+        };
+    }, []);
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
                 <h2 className={styles.formTitle}>Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
-                         <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             id="email"
