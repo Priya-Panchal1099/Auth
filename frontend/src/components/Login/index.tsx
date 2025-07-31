@@ -1,13 +1,49 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './login.module.scss';
+import axios from 'axios';
 
+ interface FormData {
+        email: string;
+        password: string;
+    }
 const Login = () => {
+
+    const [formData, setFormData] = useState<FormData>({
+        email: '',
+        password: '',
+    });
+
     const handleChange = (e: any) => {
         const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
     }
+    
+     const clearForm = () => {
+        setFormData({
+            email: '',
+            password: '',
+        });
+    };
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8085/auth/login', formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log("Response:", response.data);
+            alert('Login successful!');
+            clearForm();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Login failed. Please try again.');
+        }
     }
     return (
         <div className={styles.container}>
@@ -20,7 +56,7 @@ const Login = () => {
                             type="email"
                             id="email"
                             name="email"
-                            // value={formData.email}
+                            value={formData.email}
                             onChange={handleChange}
                             className={styles.formControl}
                         />
@@ -31,7 +67,7 @@ const Login = () => {
                             type="password"
                             id="password"
                             name="password"
-                            // value={formData.password}
+                            value={formData.password}
                             onChange={handleChange}
                             className={styles.formControl}
                         />
