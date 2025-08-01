@@ -8,18 +8,19 @@ const UserData = () => {
 
   const [users, setUsers] = useState([]);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // Retrieve the token from localStorage or wherever it's stored
-        const token = localStorage.getItem('token'); // Make sure to store the token after login
-
+        // Get the token from localStorage
+        const token = localStorage.getItem('token'); 
         const response = await axios.get('http://localhost:8085/admin/getUser', {
           headers: {
             'Authorization': `Bearer ${token}` // Include the Bearer token in the headers
           }
         });
         setUsers(response.data);
+        console.log("User Data:", response.data);
+
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -29,8 +30,9 @@ const UserData = () => {
   }, []);
 
   return (
-      <div className={styles.container}>
+    <div className={styles.container}>
       <h1 className={styles.title}>User Data</h1>
+
       <table className={styles.table}>
         <thead>
           <tr>
@@ -42,8 +44,8 @@ const UserData = () => {
             {/* Add more headers as needed */}
           </tr>
         </thead>
-      <tbody>
-          {users.map(user => (
+        {users.map((user:any) => (
+          <tbody>
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.username}</td>
@@ -56,8 +58,8 @@ const UserData = () => {
                 {user.enabled ? 'Enabled' : 'Disabled'}
               </td>
             </tr>
-          ))}
-        </tbody>
+          </tbody>
+        ))}
       </table>
     </div>
   )

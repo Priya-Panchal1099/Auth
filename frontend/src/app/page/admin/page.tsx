@@ -1,4 +1,4 @@
-import UserData from '@/components/Admin'
+import UserData from '@/components/Dashboard'
 import React from 'react'
 
 const users = () => {
