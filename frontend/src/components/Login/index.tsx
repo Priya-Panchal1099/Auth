@@ -2,13 +2,17 @@
 import React, { use, useEffect, useState } from 'react';
 import styles from './login.module.scss';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 
 interface FormData {
     email: string;
     password: string;
 }
 const Login = () => {
+    const router = useRouter();
     const [token, setToken] = useState<string | null>(null);
+    let tokenTimeout :any;
     const [formData, setFormData] = useState<FormData>({
         email: '',
         password: '',
@@ -29,6 +33,13 @@ const Login = () => {
         });
     };
 
+    const clearToken = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        alert('Session expired. Please log in again.');
+        router.push('/page/login');
+    };
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
@@ -44,6 +55,8 @@ const Login = () => {
             localStorage.setItem('token', token);
             alert('Login successful!');
             clearForm();
+            router.push('/page/admin');
+            tokenTimeout = setTimeout(clearToken, 3600000); // Clear token after 1 hour
         } catch (error) {
             console.error('Error:', error);
             alert('Login failed. Please try again.');
@@ -64,6 +77,15 @@ const Login = () => {
             })
         return () => {
             axios.interceptors.request.eject(requestInterceptor);
+        };
+    }, []);
+
+    // Clear the timeout when the component unmounts
+    useEffect(() => {
+        return () => {
+            if (tokenTimeout) {
+                clearTimeout(tokenTimeout);
+            }
         };
     }, []);
     return (
