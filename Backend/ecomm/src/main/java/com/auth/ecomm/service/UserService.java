@@ -39,9 +39,12 @@ public class UserService {
        return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
-       return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    public List<User> getUserByRole(String role) {
+        List<User> users = userRepository.findByRoles(role);
+        if (users == null || users.isEmpty()) {
+            throw new RuntimeException("No users found with role: " + role);
+        }
+        return users;
     }
 
     // public void generateAndSendOtp(String email) {
