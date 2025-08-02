@@ -1,7 +1,7 @@
 
 'use client'
 import axios from 'axios';
-import styles from './admin.module.scss';
+import styles from './dashboard.module.scss';
 import { useEffect, useState } from 'react';
 import useUserStore from '@/stores/user-store';
 
@@ -47,9 +47,9 @@ const UserData = () => {
               <th>Access</th>
               {/* Add more headers as needed */}
             </tr>
-          </thead>role
+          </thead>
+          <tbody>
           {users.map((user: any) => (
-            <tbody>
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.username}</td>
@@ -62,8 +62,8 @@ const UserData = () => {
                   {user.enabled ? 'Enabled' : 'Disabled'}
                 </td>
               </tr>
-            </tbody>
           ))}
+          </tbody>
         </table>
       }
     </div>
