@@ -49,7 +49,7 @@ const UserData = () => {
             </tr>
           </thead>
           <tbody>
-          {users.map((user: any) => (
+            {users.map((user: any) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.username}</td>
@@ -62,10 +62,16 @@ const UserData = () => {
                   {user.enabled ? 'Enabled' : 'Disabled'}
                 </td>
               </tr>
-          ))}
+            ))}
           </tbody>
         </table>
       }
+
+      {role == 'USER' &&
+        <h2>User Information </h2>
+
+      }
+
     </div>
   )
 }
