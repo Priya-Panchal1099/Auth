@@ -3,17 +3,21 @@
 import axios from 'axios';
 import styles from './admin.module.scss';
 import { useEffect, useState } from 'react';
+import useUserStore from '@/stores/user-store';
 
 const UserData = () => {
 
   const [users, setUsers] = useState([]);
+  const { role } = useUserStore();
+  console.log("User Store Data:", role);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         // Get the token from localStorage
-        const token = localStorage.getItem('token'); 
-        const response = await axios.get('http://localhost:8085/admin/getUser', {
+        const token = localStorage.getItem('token');
+        // const response = await axios.get('http://localhost:8085/admin/getUser', { //all users
+        const response = await axios.get('http://localhost:8085/users/getUser/USER', { // Fetch users with the role 'USER'
           headers: {
             'Authorization': `Bearer ${token}` // Include the Bearer token in the headers
           }
@@ -31,36 +35,37 @@ const UserData = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>User Data</h1>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Access</th>
-            {/* Add more headers as needed */}
-          </tr>
-        </thead>
-        {users.map((user:any) => (
-          <tbody>
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.roles.join(', ')}</td>
-              <td>
-                {user.accountNonExpired ? 'Active' : 'Expired'},{' '}
-                {user.accountNonLocked ? 'Unlocked' : 'Locked'},{' '}
-                {user.credentialsNonExpired ? 'Valid' : 'Invalid'},{' '}
-                {user.enabled ? 'Enabled' : 'Disabled'}
-              </td>
+      <h1 className={styles.title}>{role == 'USER' ? <p>User Dashboard</p> : <p>Admin Dashboard</p>}</h1>
+      {role == 'ADMIN' &&
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Access</th>
+              {/* Add more headers as needed */}
             </tr>
-          </tbody>
-        ))}
-      </table>
+          </thead>role
+          {users.map((user: any) => (
+            <tbody>
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.roles.join(', ')}</td>
+                <td>
+                  {user.accountNonExpired ? 'Active' : 'Expired'},{' '}
+                  {user.accountNonLocked ? 'Unlocked' : 'Locked'},{' '}
+                  {user.credentialsNonExpired ? 'Valid' : 'Invalid'},{' '}
+                  {user.enabled ? 'Enabled' : 'Disabled'}
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      }
     </div>
   )
 }

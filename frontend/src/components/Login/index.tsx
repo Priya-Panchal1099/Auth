@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from 'react';
 import styles from './login.module.scss';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import useUserStore from '@/stores/user-store';
 
 
 interface FormData {
@@ -12,7 +13,8 @@ interface FormData {
 const Login = () => {
     const router = useRouter();
     const [token, setToken] = useState<string | null>(null);
-    let tokenTimeout :any;
+    const setRole = useUserStore((state) => state.setRole);
+    let tokenTimeout: any;
     const [formData, setFormData] = useState<FormData>({
         email: '',
         password: '',
@@ -50,8 +52,9 @@ const Login = () => {
             });
             console.log("Response:", response.data);
             // Assuming the response contains a token
-            const { token } = response.data;
+            const { token, roles } = response.data;
             setToken(token);
+            setRole(roles[0]);
             localStorage.setItem('token', token);
             alert('Login successful!');
             clearForm();

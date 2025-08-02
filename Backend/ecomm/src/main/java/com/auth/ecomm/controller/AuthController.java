@@ -6,8 +6,9 @@ import com.auth.ecomm.security.jwt.JwtUtils;
 import com.auth.ecomm.service.UserService;
 
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,13 +17,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -36,7 +37,7 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> credentials) {
+    public Map<String, Object> login(@RequestBody Map<String, String> credentials) {
         Authentication authentication= (Authentication) authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 credentials.get("email"), credentials.get("password")
@@ -45,7 +46,8 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails=userDetailsService.loadUserByUsername(credentials.get("email"));
         String token = jwtUtils.generateToken(userDetails);
-        return Map.of("token", token);
+        return Map.of("token", token,"roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toList()));
     }
 
     // @PostMapping("/send-otp")
