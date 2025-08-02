@@ -24,6 +24,9 @@ const Header = () => {
                     <button className={styles.buttonHead} onClick={() => router.push('/page/about')}>
                         About
                     </button>
+                     <button className={styles.buttonHead} onClick={() => router.push('/page/contactus')}>
+                        Contact Us
+                    </button>
                 </div>
             </nav>
         </header>
