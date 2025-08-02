@@ -8,7 +8,7 @@ const Footer = () => {
       <div className={styles.footerContainer}>
         <div className={styles.footerContent}>
           <div className={styles.footerLogo}>
-            E-commerce
+            Enterprise Resource Planning
           </div>
           <div className={styles.socialLinks}>
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">

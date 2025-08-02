@@ -12,7 +12,7 @@ const Header = () => {
         <header className={styles.header}>
             <nav aria-label="Global" className={styles.navContainer}>
                 <div className={styles.logo}>
-                   E-commerce
+                   Enterprise Resource Planning
                 </div>
                 <div className="flex gap-4">
                     <button className={styles.buttonHead} onClick={() => router.push('/page/login')}>
@@ -20,6 +20,9 @@ const Header = () => {
                     </button>
                     <button className={styles.buttonHead} onClick={() => router.push('/page/register')}>
                         Register
+                    </button>
+                    <button className={styles.buttonHead} onClick={() => router.push('/page/about')}>
+                        About
                     </button>
                 </div>
             </nav>
