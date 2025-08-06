@@ -8,11 +8,11 @@ $success-color: #10b981;
 
 .container {
   display: flex;
-//   flex-direction: column;
+  // flex-direction: column;
   justify-content: center;
   align-items: center;
-//   gap: 2rem;
-//   padding: 2rem;
+  // gap: 2rem;
+  padding: 1rem;
   background-color: $light-color;
   min-height: 650px;
 

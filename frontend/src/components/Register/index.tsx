@@ -4,6 +4,7 @@ import styles from './register.module.scss';
 
 import Image from 'next/image';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
     interface FormData {
@@ -13,6 +14,7 @@ export default function Register() {
         roles: string[];
     }
 
+    const router=useRouter();
     const [formData, setFormData] = useState<FormData>({
         username: '',
         password: '',
@@ -49,6 +51,7 @@ export default function Register() {
             console.log("Response:", response.data);
             alert('Registration successful!');
             clearForm(); // Clear the form after successful submission
+            router.push("/page/login");
         } catch (error) {
             console.error('Error:', error);
             alert('Registration failed. Please try again.');

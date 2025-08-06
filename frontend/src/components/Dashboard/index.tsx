@@ -73,7 +73,6 @@ const UserData = () => {
         <h2>User Information </h2>
 
       }
-
     </div>
   )
 }
