@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './dashboard.module.scss';
 import { useEffect, useState } from 'react';
 import useUserStore from '@/stores/user-store';
+import Header from '../Header';
 
 const UserData = () => {
 
@@ -35,6 +36,7 @@ const UserData = () => {
 
   return (
     <div className={styles.container}>
+      <Header/>
       <h1 className={styles.title}>{role == 'USER' ? <p>User Dashboard</p> : <p>Admin Dashboard</p>}</h1>
       {role == 'ADMIN' &&
         <table className={styles.table}>

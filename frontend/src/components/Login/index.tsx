@@ -4,6 +4,7 @@ import styles from './login.module.scss';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import useUserStore from '@/stores/user-store';
+import { useAuth } from '@/app/context/AuthContext';
 
 
 interface FormData {
@@ -11,6 +12,7 @@ interface FormData {
     password: string;
 }
 const Login = () => {
+    const { login } = useAuth();
     const router = useRouter();
     const [token, setToken] = useState<string | null>(null);
     const setRole = useUserStore((state) => state.setRole);
@@ -56,6 +58,7 @@ const Login = () => {
             setToken(token);
             setRole(roles[0]);
             localStorage.setItem('token', token);
+            login();
             alert('Login successful!');
             clearForm();
             router.push('/page/admin');
