@@ -16,7 +16,8 @@ const Header = () => {
         <header className={styles.header}>
             <nav aria-label="Global" className={styles.navContainer}>
                 <div className={styles.logo}>
-                    Enterprise Resource Planning
+                    {/* Enterprise Resource Planning */}
+                        E-Commerce
                 </div>
                 <div className="flex gap-4">
                     {!isAuthenticated ? (
@@ -38,6 +39,9 @@ const Header = () => {
                     </button>
                     <button className={styles.buttonHead} onClick={() => router.push('/page/contactus')}>
                         Contact Us
+                    </button>
+                     <button className={styles.buttonHead} onClick={() => router.push('/page/product')}>
+                        Product
                     </button>
                 </div>
             </nav>

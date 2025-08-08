@@ -58,7 +58,7 @@ public class WebSecurityConfig {
                     return corsConfiguration;
                 }))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/**", "/auth/**")
+                        .requestMatchers("/users/**", "/auth/**","/products")
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
