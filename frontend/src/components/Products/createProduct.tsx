@@ -3,31 +3,57 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from './product.module.scss';
-import { log } from 'console';
+import axios from 'axios';
 
+interface ProductData {
+  name: string;
+  description: string;
+  price: number;
+}
 export default function CreateProduct() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
+  const [productData, setProductData] = useState<ProductData>({
+    name: '',
+    description: '',
+    price: 0
+  });
+
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const token = localStorage.getItem('token');
-    console.log(token, "-------token-----");
+    try {
+      const token = localStorage.getItem('token');
+      console.log(token, "-------token-----");
 
-    const response = await fetch('http://localhost:8085/products/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-         'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({ name, description, price }),
-    });
-
-    if (response.ok) {
-      alert("Product Added Sucessfully")
+      const response = await axios.post('http://localhost:8085/products/create', productData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      alert('Product created successfully!');
+      console.log("Response:", response.data);
+      clearForm();
+    } catch (error) {
+      console.error("Error creating product:", error);
+      alert("Error creating product. Please try again.");
     }
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setProductData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+
+  const clearForm = () => {
+    setProductData({
+      name: '',
+      description: '',
+      price: 0
+    });
   };
 
   return (
@@ -37,15 +63,15 @@ export default function CreateProduct() {
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label>Name</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.formControl} />
+            <input type="text" name="name" value={productData.name} onChange={handleChange} className={styles.formControl} />
           </div>
           <div className={styles.formGroup}>
             <label>Description</label>
-            <textarea value={description} onChange={(e) => setDescription(e.target.value)} className={styles.formControl} />
+            <textarea name="description" value={productData.description} onChange={handleChange} className={styles.formControl} />
           </div>
           <div className={styles.formGroup}>
             <label>Price</label>
-            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className={styles.formControl} />
+            <input type="number" name="price" value={productData.price} onChange={handleChange} className={styles.formControl} />
           </div>
           <button type="submit" className={styles.buttonHead}>Create</button>
         </form>
