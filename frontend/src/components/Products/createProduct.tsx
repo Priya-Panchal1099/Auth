@@ -2,7 +2,7 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from './product.module.scss';
+import styles from '../../styles/createproduct.module.scss';
 import axios from 'axios';
 
 interface ProductData {

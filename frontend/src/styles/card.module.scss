@@ -1,0 +1,41 @@
+/* ProductCard.css */
+.productContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: #fff;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.productTitle {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.productDescription {
+  margin: 0 0 12px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.productPrice {
+  margin: 0;
+  font-weight: 600;
+  color: #222;
+  font-size: 16px;
+}

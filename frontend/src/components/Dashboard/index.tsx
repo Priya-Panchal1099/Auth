@@ -5,6 +5,7 @@ import styles from './dashboard.module.scss';
 import { useEffect, useState } from 'react';
 import useUserStore from '@/stores/user-store';
 import Header from '../Header';
+import Products from '../Products';
 
 const UserData = () => {
 
@@ -70,8 +71,7 @@ const UserData = () => {
       }
 
       {role == 'USER' &&
-        <h2>User Information </h2>
-
+        <><Products /></>
       }
     </div>
   )

@@ -35,6 +35,7 @@ const Header = () => {
                         <button className={styles.buttonHead} onClick={logout}>
                             Logout
                         </button>
+                        
                     )}
                     <button className={styles.buttonHead} onClick={() => router.push('/page/about')}>
                         About
@@ -42,7 +43,7 @@ const Header = () => {
                     <button className={styles.buttonHead} onClick={() => router.push('/page/contactus')}>
                         Contact Us
                     </button>
-                    {role == "ADMIN" &&
+                    {(role == "ADMIN" && isAuthenticated )&&
                         <button className={styles.buttonHead} onClick={() => router.push('/page/product')}>
                             Product
                         </button>
