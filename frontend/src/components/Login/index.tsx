@@ -16,6 +16,7 @@ const Login = () => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const setRole = useUserStore((state) => state.setRole);
+  const setUserId = useUserStore((state) => state.setUserId);
   let tokenTimeout: any;
 
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
@@ -40,15 +41,18 @@ const Login = () => {
       const response = await axios.post('http://localhost:8085/auth/login', formData, {
         headers: { 'Content-Type': 'application/json' },
       });
-      const { token, roles } = response.data;
+    
+      const { token, roles, userId } = response.data;
       setToken(token);
       setRole(roles[0]);
+      if (userId !== undefined) setUserId(Number(userId));
       localStorage.setItem('token', token);
       login();
       alert('Login successful!');
       clearForm();
       router.push('/page/admin');
       tokenTimeout = setTimeout(clearToken, 3600000);
+        console.log("Response",response.data);
     } catch (error) {
       console.error('Error:', error);
       alert('Login failed. Please try again.');

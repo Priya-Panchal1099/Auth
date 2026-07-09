@@ -3,7 +3,6 @@ import axios from 'axios';
 import styles from './dashboard.module.scss';
 import { useEffect, useState } from 'react';
 import useUserStore from '@/stores/user-store';
-import Header from '../Header';
 import Products from '../Products';
 
 const UserData = () => {

@@ -47,6 +47,12 @@ public class UserService {
         return users;
     }
 
+    public Long getUserIdByEmail(String email) {
+        return userRepository.findByEmail(email)
+            .map(User::getId)
+            .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+
     // public void generateAndSendOtp(String email) {
     //     User user=new User();
     //     String otp = otpService.generateOtp(email);

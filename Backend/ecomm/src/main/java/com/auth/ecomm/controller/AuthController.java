@@ -46,8 +46,17 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails=userDetailsService.loadUserByUsername(credentials.get("email"));
         String token = jwtUtils.generateToken(userDetails);
-        return Map.of("token", token,"roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-        .collect(Collectors.toList()));
+
+        // Fetch userId from DB so the frontend can use it for order placement
+        Long userId = userService.getUserIdByEmail(credentials.get("email"));
+
+        return Map.of(
+            "token", token,
+            "roles", userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()),
+            "userId", userId
+        );
     }
 
     // @PostMapping("/send-otp")
